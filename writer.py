@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-# ################ blogpages 开始编辑 ###############################
+# ################ blogdetails 开始编辑 ###############################
 # 指定原始文件路径
 original_file_path = "D:/GitHub/morethan987.github.io/blogdetail/2024/07/local_overleaf/index.html"
 # 指定新文件的存储路径
@@ -13,7 +13,7 @@ with open(original_file_path, 'r', encoding='utf-8') as file:
 # 使用BeautifulSoup解析HTML内容
 soup = BeautifulSoup(original_content, 'lxml')
 if soup:
-    print("已成功获取blogpages模板！")
+    print("已成功获取blogdetails模板！")
 
 # 定位meta标签
 mata_tag = soup.find('meta', attrs={'name': 'keyword'})
@@ -92,5 +92,5 @@ with open(new_file_path, 'w', encoding='utf-8') as file:
     file.write(str(soup))
 
 print(f"File has been modified and saved to {new_file_path}")
-# ################ blogpages 结束编辑 ###############################
+# ################ blogdetails 结束编辑 ###############################
 
