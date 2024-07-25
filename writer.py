@@ -14,7 +14,7 @@ with open(original_file_path, 'r', encoding='utf-8') as file:
 # 使用BeautifulSoup解析HTML内容
 soup = BeautifulSoup(original_content, 'lxml')
 if soup:
-    print("已成功获取blogdetails模板！")
+    print("已成功获取blogdetails模板！开始编辑blogdetails")
 
 # 定位meta标签
 mata_tag = soup.find('meta', attrs={'name': 'keyword'})
@@ -114,7 +114,7 @@ with open(original_file_path, 'r', encoding='utf-8') as file:
 # 使用BeautifulSoup解析HTML内容
 soup = BeautifulSoup(original_content, 'lxml')
 if soup:
-    print("已成功获取blogpages模板！")
+    print("已成功获取blogpages模板！开始编辑blogpages")
 
 original_tag_names = []
 # 定位tags Section
@@ -178,6 +178,18 @@ with open(new_file_path, 'w', encoding='utf-8') as file:
 # ################ blogpages 结束编辑 ###############################
 
 # ################ list 开始编辑 ###############################
+# 指定原始文件路径
+original_file_path = "D:/GitHub/morethan987.github.io/list/index.html"
+# 指定新文件的存储路径
+new_file_path = 'D:/blog_writer/new_list/index_mod.html'
+# 读取原始文件内容
+with open(original_file_path, 'r', encoding='utf-8') as file:
+    original_content = file.read()
+
+# 使用BeautifulSoup解析HTML内容
+soup = BeautifulSoup(original_content, 'lxml')
+if soup:
+    print("已成功获取list模板！开始编辑blogpages")
 
 # ################ list 结束编辑 ###############################
 
