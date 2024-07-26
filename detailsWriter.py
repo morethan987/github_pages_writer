@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 
 class DetailsWriter:
@@ -88,8 +89,7 @@ class DetailsWriter:
             # 检查是否找到了标签并修改内容
             if p_tag:
                 print("original post date: " + str(p_tag.string))
-                new_content = input("input your new post date: ")
-                p_tag.string = new_content
+                p_tag.string = f"{datetime.now().year}/{datetime.now().month:02d}/{datetime.now().day:02d}"
                 self.manager.detail_information['post_date'] = p_tag.string
             else:
                 print("No such tag!")

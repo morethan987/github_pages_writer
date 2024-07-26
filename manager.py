@@ -32,7 +32,9 @@ class Manager:
             'post_date': '',
             'tag_names': []
         }  # 博客详情中的信息
-        self.cover_information = {}  # 封面中的信息
+        self.cover_information = {
+            'post_month': ''
+        }  # 封面中的信息
         self.list_information = {}  # 列表中的信息
         self.tags_information = {}  # 标签中的信息
 

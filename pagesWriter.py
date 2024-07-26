@@ -74,6 +74,7 @@ class PagesWriter:
             new_address = '../blogdetail/' + f"{datetime.now().year}/{datetime.now().month:02d}/" + new_file_name
             parent_div.find('a')['href'] = new_address
             last_child_copy.find('div', attrs={'class': 'read-details'}).find('a')['href'] = new_address
+            self.manager.cover_information['post_month'] = f"{datetime.now().year}/{datetime.now().month:02d}"
 
             # 更改标签内容
             cover_tag = last_child_copy.find('div', attrs={'class': 'text-sm font-medium tags'})
