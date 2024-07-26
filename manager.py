@@ -1,6 +1,7 @@
 from detailsWriter import DetailsWriter
 from pagesWriter import PagesWriter
 from listWriter import ListWriter
+from tagsWriter import TagsWriter
 
 
 def end():
@@ -19,8 +20,10 @@ class Manager:
 
             'list_in': 'D:/GitHub/morethan987.github.io/list/index.html',
             'list_out': 'D:/blog_writer/new_list/index_mod.html',
+
+            'tags_in': 'D:/GitHub/morethan987.github.io/tags/index.html',
+            'tags_out': 'D:/blog_writer/new_tags/index_mod.html',
         }
-        self.cover_information = {}  # 封面中的信息
         self.detail_information = {
             'meta_keyword': '',
             'web_title': '',
@@ -29,6 +32,9 @@ class Manager:
             'post_date': '',
             'tag_names': []
         }  # 博客详情中的信息
+        self.cover_information = {}  # 封面中的信息
+        self.list_information = {}  # 列表中的信息
+        self.tags_information = {}  # 标签中的信息
 
     def run(self):
         # 撰写博客详情页
@@ -42,6 +48,10 @@ class Manager:
         # 撰写博客列表页
         list_writer = ListWriter(self)
         list_writer.start()
+
+        # 撰写博客标签页
+        tags_writer = TagsWriter(self)
+        tags_writer.start()
 
         # 结束
         end()
