@@ -11,6 +11,8 @@ class TagsWriter:
 
     def start(self):
         self.init()
+        self.insert_blog()
+        self.write()
 
     def init(self):
         print("开始编辑blogtags，读取tags模板中......")
@@ -24,3 +26,12 @@ class TagsWriter:
             print("已成功获取blogtags模板！开始编辑blogtags")
         else:
             print("获取模板失败，请重新指定路径！")
+
+    def insert_blog(self):
+        pass
+
+    def write(self):
+        # 将修改后的HTML内容写入到新文件中
+        with open(self.obj_path, 'w', encoding='utf-8') as file:
+            file.write(str(self.soup))
+        print(f"File has been modified and saved to {self.obj_path}")
