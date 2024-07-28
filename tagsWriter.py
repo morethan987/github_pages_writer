@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import copy
+import shutil
+import os
 
 
 class TagsWriter:
@@ -14,6 +16,7 @@ class TagsWriter:
         self.init()
         self.insert_blog()
         self.update_tags()  # insert和update二者顺序不能调换，insert的检查点在tags section
+        self.add_image()
         self.write()
 
     def init(self):
@@ -85,7 +88,7 @@ class TagsWriter:
                     cover_soup = self.get_templet()
                     source_div = cover_soup.find_all('div', attrs={
                         'class': 'grid md:gap-2 grid-cols-12 overflow-hidden article group bg-flashWhite dark:bg-metalBlack '
-                                 'items-center rounded-2xl p-3.5'})[1]
+                                 'items-center rounded-2xl p-3.5'})[0]
                     # 将 source_div 复制并插入到 obj_div 的第一个位置
                     if source_div and obj_div:
                         obj_div.insert(0, source_div)
@@ -101,13 +104,36 @@ class TagsWriter:
                     source_div = cover_soup.find_all('div',
                                                      class_='grid md:gap-2 grid-cols-12 overflow-hidden article group '
                                                             'bg-flashWhite dark:bg-metalBlack items-center '
-                                                            'rounded-2xl p-3.5')[1]
+                                                            'rounded-2xl p-3.5')[0]
                     target_div = parent_div.find('div', attrs={'class': 'blog-list md:space-y-7.5 space-y-5'})
                     # 将 source_div 复制并插入到 target_div 的第一个位置
                     if source_div and target_div:
                         target_div.insert(0, source_div)
         else:
             print("No such tag!")
+
+    def add_image(self):
+        img_name = self.manager.cover_information['cover_image_name']
+        # 实际复制图片到指定目录
+        # 指定源图片文件的路径
+        source_image_path = 'D:/blog_writer/image/' + img_name
+
+        # 指定目标文件夹的路径
+        destination_folder_path = 'D:/GitHub/morethan987.github.io/tags/assets/img/blog'
+
+        # 确保目标文件夹存在
+        if not os.path.exists(destination_folder_path):
+            os.makedirs(destination_folder_path)
+
+        # 构建目标图片文件的完整路径
+        destination_image_path = os.path.join(destination_folder_path, os.path.basename(source_image_path))
+
+        # 复制图片文件
+        try:
+            shutil.copy(source_image_path, destination_image_path)
+            print(f"图片已成功复制到 {destination_image_path}")
+        except IOError as e:
+            print(f"无法复制文件。{e}")
 
     def write(self):
         # 将修改后的HTML内容写入到新文件中
