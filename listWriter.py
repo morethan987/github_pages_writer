@@ -34,7 +34,6 @@ class ListWriter:
                                                  'xl:ml-auto'})
         if month_div.get('id') == self.manager.cover_information['post_month']:
             cover_soup = self.get_templet()
-            # source_div = cover_soup.find('div', attrs={'class': 'grid md:gap-2 grid-cols-12 overflow-hidden article group bg-flashWhite dark:bg-metalBlack items-center rounded-2xl p-3.5'})
             source_div = cover_soup.find_all('div', class_='grid md:gap-2 grid-cols-12 overflow-hidden article group bg-flashWhite dark:bg-metalBlack items-center rounded-2xl p-3.5')[1]
             target_div = month_div.find('div', attrs={'class': 'blog-list md:space-y-7.5 space-y-5'})
             # 将 source_div 复制并插入到 target_div 的第一个位置
@@ -49,15 +48,15 @@ class ListWriter:
                                                        'section-name border-platinum dark:border-greyBlack200 '
                                                        'rounded-4xl'}).string = month_div_copy['id']
             # 更改内容信息
-            target_div = month_div.find('div', attrs={'class': 'blog-list md:space-y-7.5 space-y-5'})
+            target_div = month_div_copy.find('div', attrs={'class': 'blog-list md:space-y-7.5 space-y-5'})
             # 先删除所有原有内容
             for child in target_div.find_all(True):
                 child.extract()
             # 获取模板
             cover_soup = self.get_templet()
-            source_div = cover_soup.find('div', attrs={
+            source_div = cover_soup.find_all('div', attrs={
                 'class': 'grid md:gap-2 grid-cols-12 overflow-hidden article group bg-flashWhite dark:bg-metalBlack '
-                         'items-center rounded-2xl p-3.5'})
+                         'items-center rounded-2xl p-3.5'})[1]
             # 将 source_div 复制并插入到 target_div 的第一个位置
             if source_div and target_div:
                 target_div.insert(0, source_div)
