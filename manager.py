@@ -33,7 +33,8 @@ class Manager:
             'tag_names': []
         }  # 博客详情中的信息
         self.cover_information = {
-            'post_month': ''
+            'post_month': '',
+            'cover_image_name': ''
         }  # 封面中的信息
         self.list_information = {}  # 列表中的信息
         self.tags_information = {}  # 标签中的信息

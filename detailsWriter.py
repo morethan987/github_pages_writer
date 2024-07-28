@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
+import os
+import shutil
 import lxml
 
 
@@ -18,6 +20,7 @@ class DetailsWriter:
         self.change_detail_title()
         self.change_post_date()
         self.change_tags()
+        self.change_image()
         self.write()
 
     def init(self):
@@ -123,6 +126,38 @@ class DetailsWriter:
                     break
         else:
             print("No such tag!")
+
+    def change_image(self):
+        # 定位img标签
+        img_tag = self.soup.find('img', attrs={'alt': 'Blog Thumbnail Image'})
+        print("Please put your image into 'D:/blog_writer/image' and rename it as 'example.png'")
+        print("Recommend size: 900*350")
+        img_name = input("input your head line image name: ")
+        if img_tag:
+            # 实际复制图片到指定目录
+            # 指定源图片文件的路径
+            source_image_path = 'D:/blog_writer/image/' + img_name
+
+            # 指定目标文件夹的路径
+            destination_folder_path = 'D:/GitHub/morethan987.github.io/blogdetail/assets/img/blog'  # 替换为你的目标文件夹路径
+
+            # 确保目标文件夹存在
+            if not os.path.exists(destination_folder_path):
+                os.makedirs(destination_folder_path)
+
+            # 构建目标图片文件的完整路径
+            destination_image_path = os.path.join(destination_folder_path, os.path.basename(source_image_path))
+
+            # 复制图片文件
+            try:
+                shutil.copy(source_image_path, destination_image_path)
+                print(f"图片已成功复制到 {destination_image_path}")
+                # 更改代码中文件指向
+                img_tag['src'] = '../../../assets/img/blog/' + img_name
+            except IOError as e:
+                print(f"无法复制文件。{e}")
+        else:
+            print("Can't find image tag!")
 
     def write(self):
         # 将修改后的HTML内容写入到新文件中

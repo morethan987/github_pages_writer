@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 from datetime import datetime
+import shutil
+import os
 
 
 class PagesWriter:
@@ -14,6 +16,7 @@ class PagesWriter:
         self.init()
         self.update_tags()
         self.update_insights()
+        self.change_cover_image()
         self.write()
 
     def init(self):
@@ -65,12 +68,21 @@ class PagesWriter:
                          'items-center rounded-2xl p-3.5'})[-1]
 
             # 更改链接地址信息
-            print("chang file name, you need to new a file in GitHub.io/blogdetail\nthe year and "
-                  "month is your current year and month\nyou'd better do it now!\nyour original file "
-                  "address: ../blogdetail/2024/07/<local_overleaf>\n")
+            print("Program will creat a new folder if necessary\n your original file name: local_overleaf")
             new_file_name = input("your new file name: ")
             parent_div = last_child_copy.find('div', attrs={
                 'class': 'flex col-span-12 overflow-hidden thumbnail sm:col-span-6 md:col-span-5'})
+            # 新建文件路径
+            folder_path = 'D:/GitHub/morethan987.github.io/blogdetail/' + f"{datetime.now().year}/{datetime.now().month:02d}/" + new_file_name
+
+            # 检查文件夹是否存在
+            if not os.path.exists(folder_path):
+                # 如果不存在，则创建文件夹
+                os.makedirs(folder_path)
+                print(f"文件夹 {folder_path} 已创建。")
+            else:
+                print(f"文件夹 {folder_path} 已存在。")
+            # 更新代码中的文件指向
             new_address = '../blogdetail/' + f"{datetime.now().year}/{datetime.now().month:02d}/" + new_file_name
             parent_div.find('a')['href'] = new_address
             last_child_copy.find('div', attrs={'class': 'read-details'}).find('a')['href'] = new_address
@@ -96,6 +108,43 @@ class PagesWriter:
 
         else:
             print("No such tag!")
+
+    def change_cover_image(self):
+        # 定位上级标签
+        parent_div = self.soup.find('div', attrs={'class': 'blog-list md:space-y-7.5 space-y-5'})
+        first_child_div = parent_div.find('div', attrs={
+                'class': 'grid md:gap-2 grid-cols-12 overflow-hidden article group bg-flashWhite dark:bg-metalBlack '
+                         'items-center rounded-2xl p-3.5'})
+        img_tag = first_child_div.find('img', attrs={'alt': 'Post Title'})
+        print("Please put your image into 'D:/blog_writer/image' and rename it as 'example.png'")
+        print("Recommend size: 700*700")
+        img_name = input("input your cover image name: ")
+        self.manager.cover_information['cover_image_name'] = img_name
+        if img_tag:
+            # 实际复制图片到指定目录
+            # 指定源图片文件的路径
+            source_image_path = 'D:/blog_writer/image/' + img_name
+
+            # 指定目标文件夹的路径
+            destination_folder_path = 'D:/GitHub/morethan987.github.io/blogpages/assets/img/blog'
+
+            # 确保目标文件夹存在
+            if not os.path.exists(destination_folder_path):
+                os.makedirs(destination_folder_path)
+
+            # 构建目标图片文件的完整路径
+            destination_image_path = os.path.join(destination_folder_path, os.path.basename(source_image_path))
+
+            # 复制图片文件
+            try:
+                shutil.copy(source_image_path, destination_image_path)
+                print(f"图片已成功复制到 {destination_image_path}")
+                # 更改代码中文件指向
+                img_tag['src'] = 'assets/img/blog/' + img_name
+            except IOError as e:
+                print(f"无法复制文件。{e}")
+        else:
+            print("Can't find image tag!")
 
     def write(self):
         # 将修改后的HTML内容写入到新文件中
