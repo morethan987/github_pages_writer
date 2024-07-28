@@ -2,11 +2,64 @@ from detailsWriter import DetailsWriter
 from pagesWriter import PagesWriter
 from listWriter import ListWriter
 from tagsWriter import TagsWriter
+import os
 
 
 def end():
     print("Now you need to write your bolg content in new_blog")
     print("And add your new picture in the reference position")
+
+
+def create_folder():
+    # 新建img文件路径
+    img_path = 'D:/blog_writer/image'
+    # 检查文件夹是否存在
+    if not os.path.exists(img_path):
+        # 如果不存在，则创建文件夹
+        os.makedirs(img_path)
+        print(f"文件夹 {img_path} 已创建。")
+    else:
+        print(f"文件夹 {img_path} 已存在。")
+
+    # 新建new_blog文件路径
+    new_blog_path = 'D:/blog_writer/new_blog'
+    # 检查文件夹是否存在
+    if not os.path.exists(new_blog_path):
+        # 如果不存在，则创建文件夹
+        os.makedirs(new_blog_path)
+        print(f"文件夹 {new_blog_path} 已创建。")
+    else:
+        print(f"文件夹 {new_blog_path} 已存在。")
+
+    # 新建new_list文件路径
+    new_list_path = 'D:/blog_writer/new_list'
+    # 检查文件夹是否存在
+    if not os.path.exists(new_list_path):
+        # 如果不存在，则创建文件夹
+        os.makedirs(new_list_path)
+        print(f"文件夹 {new_list_path} 已创建。")
+    else:
+        print(f"文件夹 {new_list_path} 已存在。")
+
+    # 新建new_page文件路径
+    new_page_path = 'D:/blog_writer/new_page'
+    # 检查文件夹是否存在
+    if not os.path.exists(new_page_path):
+        # 如果不存在，则创建文件夹
+        os.makedirs(new_page_path)
+        print(f"文件夹 {new_page_path} 已创建。")
+    else:
+        print(f"文件夹 {new_page_path} 已存在。")
+
+    # 新建new_tags文件路径
+    new_tags_path = 'D:/blog_writer/new_tags'
+    # 检查文件夹是否存在
+    if not os.path.exists(new_tags_path):
+        # 如果不存在，则创建文件夹
+        os.makedirs(new_tags_path)
+        print(f"文件夹 {new_tags_path} 已创建。")
+    else:
+        print(f"文件夹 {new_tags_path} 已存在。")
 
 
 class Manager:
@@ -40,6 +93,10 @@ class Manager:
         self.tags_information = {}  # 标签中的信息
 
     def run(self):
+        # 初始化检验文件夹创建
+        create_folder()
+        print("Program has create relative folders in 'D:/blog_writer'")
+
         # 撰写博客详情页
         details_writer = DetailsWriter(self)
         details_writer.start()
