@@ -112,7 +112,9 @@ class DetailsWriter:
             print("请输入你的新标签，输入ok完成编辑")
             while True:
                 new_tag_name = input("Your new tag:")
-                if new_tag_name != "ok":
+                if new_tag_name == "":
+                    print("Can't enter nothing!")
+                elif new_tag_name != "ok":
                     new_tag = self.soup.new_tag('a', attrs={
                                                 'href': "https://morethan987.github.io/tags/#" + new_tag_name.lower(),
                                                 'class': "inline-block border border-dashed border-greyBlack "
