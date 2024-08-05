@@ -49,7 +49,7 @@ class ListWriter:
             month_div_copy.find('div', attrs={'class': 'inline-flex items-center gap-2 px-4 py-2 text-xl '
                                                        'tracking-wide text-black dark:text-white border lg:px-5 '
                                                        'section-name border-platinum dark:border-greyBlack200 '
-                                                       'rounded-4xl'}).string = month_div_copy['id']
+                                                       'rounded-4xl'}).string = '<i class="fal fa-calendar text-theme">' + month_div_copy['id']
             # 更改内容信息
             target_div = month_div_copy.find('div', attrs={'class': 'blog-list md:space-y-7.5 space-y-5'})
             # 先删除所有原有内容

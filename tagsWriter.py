@@ -39,18 +39,21 @@ class TagsWriter:
                                                            'md:gap-4'})
         if target_div:
             # 获取原标签
-            for child in target_div.find_all(True):
+            for child in target_div.find_all('a', attrs={'class': 'inline-block px-3.5 py-2 transition duration-300 border border-dashed text-black dark:text-white/70 border-platinum dark:border-greyBlack rounded-3xl md:px-5 md: md:py-2 hover:text-theme dark:hover:text-white'}):
                 original_tag_names.append(child.string)
 
             # 标签查重
             for tag_name in self.manager.detail_information['tag_names']:
                 if tag_name not in original_tag_names:
+                    last_tag = target_div.find_all('a', attrs={'class': 'inline-block px-3.5 py-2 transition duration-300 border border-dashed text-black dark:text-white/70 border-platinum dark:border-greyBlack rounded-3xl md:px-5 md: md:py-2 hover:text-theme dark:hover:text-white'})[-1]
+                    data_scroll_nav = int(last_tag['data-scroll-nav']) + 1
                     new_tag = self.soup.new_tag('a', attrs={
                         'href': "#" + tag_name.lower(),
                         'class': "inline-block px-3.5 py-2 transition duration-300 border "
                                  "border-dashed text-black dark:text-white/70 "
                                  "border-platinum dark:border-greyBlack rounded-3xl md:px-5 "
-                                 "md: md:py-2 hover:text-theme dark:hover:text-white"})
+                                 "md: md:py-2 hover:text-theme dark:hover:text-white",
+                        'data-scroll-nav': str(data_scroll_nav)})
                     new_tag.string = tag_name
                     target_div.append(new_tag)
                     print("add a new tag!")
@@ -71,10 +74,11 @@ class TagsWriter:
             # 标签查重
             for tag_name in self.manager.detail_information['tag_names']:
                 if tag_name not in original_tag_names:
-                    temp_div = self.soup.find('div', attrs={'id': 'overleaf'})
+                    temp_div = self.soup.find_all('div', attrs={'class': 'py-5 xl:py-3.5 max-w-content xl:max-2xl:max-w-50rem max-xl:mx-auto xl:ml-auto'})[-1]
                     copy_div = copy.copy(temp_div)
                     # 更改容器标签信息
                     copy_div['id'] = tag_name.lower()
+                    copy_div['data-scroll-index'] = str(int(temp_div['data-scroll-index']) + 1)
                     copy_div.find('div', attrs={'class': 'inline-flex items-center gap-2 px-4 py-2 text-xs '
                                                          'tracking-wide text-black dark:text-white border lg:px-5 '
                                                          'section-name border-platinum dark:border-greyBlack200 '
@@ -93,7 +97,7 @@ class TagsWriter:
                     if source_div and obj_div:
                         obj_div.insert(0, source_div)
                     # 完成修改并插入
-                    temp_div.insert_before(copy_div)
+                    self.soup.find('div', attrs={'id': 'blog_container'}).append(copy_div)
                 else:
                     # 定位上级标签
                     parent_div = self.soup.find('div', attrs={
