@@ -68,8 +68,7 @@ class PagesWriter:
                          'items-center rounded-2xl p-3.5'})[-1]
 
             # 更改链接地址信息
-            print("Program will creat a new folder if necessary\n your original file name: local_overleaf")
-            new_file_name = input("your new file name: ")
+            new_file_name = self.manager.detail_information['new_file_name']
             parent_div = last_child_copy.find('div', attrs={
                 'class': 'flex col-span-12 overflow-hidden thumbnail sm:col-span-6 md:col-span-5'})
             # 新建文件路径
