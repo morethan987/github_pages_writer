@@ -66,16 +66,16 @@ class Manager:
     def __init__(self):
         self.file_index = {
             'detail_in': 'D:/GitHub/morethan987.github.io/blogdetail/2024/07/local_overleaf/index.html',
-            'detail_out': 'D:/blog_writer/new_blog/index_mod.html',
+            'detail_out': '',
 
             'pages_in': 'D:/GitHub/morethan987.github.io/blogpages/index.html',
-            'pages_out': 'D:/blog_writer/new_page/index_mod.html',
+            'pages_out': 'D:/GitHub/morethan987.github.io/blogpages/index_mod.html',
 
             'list_in': 'D:/GitHub/morethan987.github.io/list/index.html',
-            'list_out': 'D:/blog_writer/new_list/index_mod.html',
+            'list_out': 'D:/GitHub/morethan987.github.io/list/index_mod.html',
 
             'tags_in': 'D:/GitHub/morethan987.github.io/tags/index.html',
-            'tags_out': 'D:/blog_writer/new_tags/index_mod.html',
+            'tags_out': 'D:/GitHub/morethan987.github.io/tags/index_mod.html',
         }
         self.detail_information = {
             'meta_keyword': '',
@@ -83,7 +83,8 @@ class Manager:
             'detail_title': '',
             'category': '',
             'post_date': '',
-            'tag_names': []
+            'tag_names': [],
+            'new_file_name': ''
         }  # 博客详情中的信息
         self.cover_information = {
             'post_month': '',
