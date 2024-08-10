@@ -21,6 +21,7 @@ class DetailsWriter:
         self.change_post_date()
         self.change_tags()
         self.change_image()
+        self.get_new_file_name()
         self.write()
 
     def init(self):
