@@ -165,9 +165,14 @@ class DetailsWriter:
         # 获取新的文件存放地址
         print("Program will creat a new folder if necessary\n your original file name: local_overleaf")
         new_file_name = input("your new file name: ")
+        self.manager.detail_information['new_file_name'] = new_file_name
         # 新的文件路径
         folder_path = 'D:/GitHub/morethan987.github.io/blogdetail/' + f"{datetime.now().year}/{datetime.now().month:02d}/" + new_file_name
-        self.obj_path = folder_path + 'index_mod.html'
+        self.obj_path = folder_path + '/index_mod.html'
+
+        # 确保目标文件夹存在
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
 
     def write(self):
         # 将修改后的HTML内容写入到新文件中
