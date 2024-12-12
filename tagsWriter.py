@@ -100,9 +100,7 @@ class TagsWriter:
                     self.soup.find('div', attrs={'id': 'blog_container'}).append(copy_div)
                 else:
                     # 定位上级标签
-                    parent_div = self.soup.find('div', attrs={
-                        'py-5 xl:py-3.5 max-w-content xl:max-2xl:max-w-50rem max-xl:mx-auto '
-                        'xl:ml-auto'})
+                    parent_div = self.soup.find('div', attrs={'class':'py-5 xl:py-3.5 max-w-content xl:max-2xl:max-w-50rem max-xl:mx-auto xl:ml-auto', 'id': tag_name.lower()})
                     # 获取模板
                     cover_soup = self.get_templet()
                     source_div = cover_soup.find_all('div',

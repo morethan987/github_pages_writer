@@ -46,10 +46,16 @@ class ListWriter:
             month_div_copy = copy.copy(month_div)
             # 更改容器标签信息
             month_div_copy['id'] = self.manager.cover_information['post_month']
-            month_div_copy.find('div', attrs={'class': 'inline-flex items-center gap-2 px-4 py-2 text-xl '
+            change_div = month_div_copy.find('div', attrs={'class': 'inline-flex items-center gap-2 px-4 py-2 text-xl '
                                                        'tracking-wide text-black dark:text-white border lg:px-5 '
                                                        'section-name border-platinum dark:border-greyBlack200 '
-                                                       'rounded-4xl'}).string = '<i class="fal fa-calendar text-theme">' + month_div_copy['id']
+                                                       'rounded-4xl'})
+            icon_tag = BeautifulSoup('<i class="fal fa-calendar text-theme"></i>', 'lxml')
+            change_div.string = ''  # 清空原有内容
+            change_div.append(icon_tag)
+            change_div.append(month_div_copy['id'])
+
+
             # 更改内容信息
             target_div = month_div_copy.find('div', attrs={'class': 'blog-list md:space-y-7.5 space-y-5'})
             # 先删除所有原有内容
